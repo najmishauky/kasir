@@ -102,7 +102,7 @@
     <div class="col-md-6">
       <input type="hidden" name='idPenjualan' value='{{$idPenjualan}}'>
        <label for="inputNama" class="form-label">Nama Produk</label>
-        <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+        <select class="form-select form-select-lg mb-3" aria-label="Large select example" name='produk'>
         <option selected>Pilih Produk</option>
          @foreach($produk as $produk)
 
@@ -112,7 +112,7 @@
   </div>
   <div class="col-md-6">
   <label for="inputJumlah" class="form-label">Jumlah Produk</label>
-    <input type="number" class="form-control" id="inputJumlah" >
+    <input type="number" class="form-control" id="inputJumlah" name='qty'>
   </div>
   <div class="d-grid gap-2 d-md-block">
      <button type="submit" class="btn btn-outline-dark">Tambah <i class="fa-solid fa-square-plus"></i></button>
@@ -153,7 +153,6 @@
   <table class="table">
   <thead class="table-dark">
     <tr>
-      <th scope="col">NO</th>
       <th scope="col">Nama Barang</th>
       <th scope="col">Harga</th>
       <th scope="col">Quantity</th>
@@ -162,22 +161,18 @@
     </tr>
   </thead>
   <tbody class="table-group-divider">
+     @foreach($detailpenjualan as $detailpenjualan)
     <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a type="button" class="btn btn-outline-danger" onclick="confirm('apakah anda yakin ingin menghapus data ini')"><i class="fa-solid fa-trash"></i></a></td>
+      <td><center>{{ $detailpenjualan->NamaProduk }}</center></td>
+      <td><center>{{ $detailpenjualan->Harga }}</center></td>
+      <td><center>{{ $detailpenjualan->JumlahProduk }}</center></td>
+      <td><center>{{ $detailpenjualan->SubTotal }}</center></td>
+      <td><center>
+        <a href="/pelanggan/{{$pelanggan->PelangganID}}" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> </a> 
+        <a type="button" class="btn btn-outline-success" href="#"><i class="fa-solid fa-pen-to-square"></i> </a>
+      </center></td>
     </tr>
-    <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a type="button" class="btn btn-outline-danger" onclick="confirm('apakah anda yakin ingin menghapus data ini')"><i class="fa-solid fa-trash"></i></a></td>
-    </tr>
+    @endforeach
   </tbody>
  </table>
 </div>

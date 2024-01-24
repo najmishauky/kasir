@@ -22,17 +22,34 @@ class penjualanController extends Controller
             $idPenjualan = $penjualan->PenjualanID;
         }
 
+        $detailPenjualan=DB::table( "detailpenjualan") ->where ("PenjualanID", $idPenjualan)
+        ->join ("produk", "detailpenjualan.ProdukID", "=", 'produk.ProdukID')
+        ->get();
+
       
-        return view("penjualan", [ 'idPenjualan'=> $idPenjualan ,'produk' => $produk, 'pelanggan' => $pelanggan]);
+        return view("penjualan", ['detailpenjualan'=>$detailPenjualan, 'idPenjualan'=> $idPenjualan ,'produk' => $produk, 'pelanggan' => $pelanggan]);
     }
 
     function store(Request $request){
+
+    $produk = DB::table('produk')->where('ProdukID', $request->produk)->first();
+    //
+    $DataPenjualan=DB::table('penjualan')->where('PenjualanID', $request->idPenjualan)->first();
+    if(!$DataPenjualan){//kalau tidak ada data
         $penjualan = DB::table ("penjualan")->insert([
             'PenjualanID' => $request->idPenjualan,
             'TanggalPenjualan' => date ("Y-m-d"),
             'TotalHarga' => 0,
             'PelangganID'=> $request->idPelanggan,
             
+        ]);
+    }
+
+        $detailPenjualan =DB::table ("detailpenjualan")->insert([
+            'PenjualanID' => $request ->idPenjualan,
+            'ProdukID' => $request ->produk,
+            'JumlahProduk' =>$request->qty,
+            'SubTotal' =>$request->qty * $produk->Harga
         ]);
     }
             
