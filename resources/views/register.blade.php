@@ -4,40 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
 </head>
 <body>
-    <h1><center>Register</center></h1>
-<div class="container text-center">
-  <div class="row">
-    <div class="col">
-      
+
+
+<body>
+
+     <br>
+     <br>
+     <div style="color: aliceblue">
+      <div class="login-box">
+     <h3 style="text-align:center;">{{$regis}}</h3>
+     <div class="card-body">
+      @if(Session::has('success'))
+      <div class="alert alert-succes" role="alert">
+        {{ Session::get('success')}}
+      </div>
     </div>
-    <div class="col">
-    <form class="row g-3">
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
-  </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Password</label>
-    <input type="password" class="form-control" id="inputPassword4">
-  </div>
-  <div class="col-12">
-    <label for="inputNama" class="form-label">Nama</label>
-    <input type="text" class="form-control" id="inputNama" placeholder="masukan nama">
-  </div>
- 
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Register</button>
-  </div>
-</form>
-    </div>
-    <div class="col">
-      
-    </div>
-  </div>
+      @endif
+        <form action="{{ route('register')}}" method="POST" enctype="multipart/form-data">
+            <div class="container">
+                @method("POST")
+                @csrf
+                
+                <div class="user-box">
+                  <input type="text" name="nama"  required="" />
+                  <label>Isi nama anda</label>
+                  </div>
+
+                  <div class="user-box">
+                    <input type="text" name="email"  required="" />
+                    <label>nama@gmail.com</label>
+                  </div>
+
+                  <div class="user-box">
+                    <input type="password" name="password"  required="" />
+                    <label>password</label>
+                  </div>
+        
+                  <center><button type="submit" class="btn btn-outline-info">DAFTAR</button></center>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    
+                  </button>
+                  <br>
+                  <p class="message">login here </p>
+                  <a href="login">login</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+        </form> 
 </div>
-    
 </body>
 </html>

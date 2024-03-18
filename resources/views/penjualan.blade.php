@@ -10,17 +10,23 @@
 <body>
 <style>
   body {
-    background-image:url('{{asset ('foto/bg1.jpg')}}');
+    /* background-image:url('{{asset ('foto/bg1.jpg')}}'); */
+    /* background: linear-gradient( #eaedf0, #141e30); */
+    font-family: sans-serif;
+    background:#59D5E0;
   }
+  .table{
+        box-shadow: 0 10px 15px black;
+      }
  </style>
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-dark bg-primary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><i class="fa-solid fa-cash-register"></i>    Aplikasi Kasir</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas offcanvas-end text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><i class="fa-solid fa-cash-register"></i>    Aplikasi Kasir</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -55,7 +61,7 @@
           <a class="nav-link active" aria-current="page" href="data_penjualan"><i class="fa-solid fa-file-invoice-dollar"></i> data Penjualan</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="penjualan"><i class="fa-solid fa-file-invoice-dollar"></i> Penjualan</a>
+          <a class="nav-link active" aria-current="page" href="penjualan"><i class="fa-solid fa-cart-shopping"></i> Penjualan</a>
           </li>
           <br>
           <li class="nav-item">
@@ -66,12 +72,6 @@
           <li><a class="dropdown-item" href="register"> <i class="fa-solid fa-user-plus"></i>    Register</a></li>
           </li>
           <br>
-          
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-        <br>
         <br>
         <br>
         <br>
@@ -81,7 +81,11 @@
         <br>
         <hr>
         <li class="nav-item">
-          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i>  Logout</a></li>
+            <form action="{{route('logout')}}" method="POST" class="d-flex" role="search">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger" type="submit">Logout</button>
+          </form>
           </li>
         </ul>
       </div>
@@ -92,7 +96,13 @@
   <br>
   <br>
   <br>
-  
+  <div class="container">
+    <div class="info">
+      @if (session("info"))
+    </div class="info">{{session("info")}}</div>
+    @endif
+  </div>
+  <br>
 <div class="container text-center">
   <div class="row">
     <div class="col">
@@ -106,7 +116,7 @@
         <option selected>Pilih Produk</option>
          @foreach($produk as $produk)
 
-        <option value={{$produk -> ProdukID}}>{{$produk -> NamaProduk}}</option>
+        <option value={{$produk -> ProdukID}}>{{ $produk -> NamaProduk}}</option>
          @endforeach
     </select>
   </div>
@@ -115,7 +125,7 @@
     <input type="number" class="form-control" id="inputJumlah" name='qty'>
   </div>
   <div class="d-grid gap-2 d-md-block">
-     <button type="submit" class="btn btn-outline-dark">Tambah <i class="fa-solid fa-square-plus"></i></button>
+     <button type="submit" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
   </div>
   <br>
   <br>
@@ -123,7 +133,7 @@
   <div class="col-12">
     <label for="inputNama" class="form-label">Nama Pelanggan</label>
     <select class="form-select form-select-lg mb-3" aria-label="Large select example" name='idPelanggan'>
-        <option selected>enter your name</option>
+        <option selected></option>
         @foreach($pelanggan as $pelanggan)
 
         <option value={{$pelanggan -> PelangganID}}>{{$pelanggan -> NamaPelanggan}}</option>
@@ -135,53 +145,54 @@
     <div class="col">
     <form class="row g-3">
       <div class="col-12">
-        <br>
-        <br>
-        <br>
-        <label for="inputTotal" class="form-label">Total Harga</label>
-        <input type="text" class="form-control" id="inputTotal">
+      <div class="container">
+          <table class="table">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col">Nama Produk</th>
+              <th scope="col">Harga</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Sub-Total</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <?php $total_harga = 0?>
+            @foreach($detailpenjualan as $detailpenjualan)
+            <tr>
+              <td><center>{{ $detailpenjualan->NamaProduk }}</center></td>
+              <td><center>Rp. {{ number_format($detailpenjualan->Harga) }}</center></td>
+              <td><center>{{ $detailpenjualan->JumlahProduk }}</center></td>
+              <td><center>Rp. {{ number_format($detailpenjualan->SubTotal) }}</center></td>
+              
+
+              <?php $total_harga = $total_harga + $detailpenjualan->SubTotal?>
+
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        </div>
       </div>
     </form>
     </div>
   </div>
+  <br>
+  <div class="card mt-3">
+     <div class="card-body">
+        <h1>Total Harga : {{ number_format($total_harga,0, ',' ,  '.') }}</h1>
+     </div>
+     <form class="d-grid gap-2 mt-3" action="{{url("/checkout")}}" method="POST">
+      @method("POST")
+      @csrf 
+      <input type="hidden" name="idPenjualan" value="{{$idPenjualan}}">
+      <input type="hidden" name="totalHarga" value="{{$total_harga}}">
 
+      <input class="btn btn-primary" type="submit" name="submit" value="Checkout">
+     </form>
+    
+  </div>
   <br>
-  <br>
-  <br>
-
-  <div class="container">
-  <table class="table">
-  <thead class="table-dark">
-    <tr>
-      <th scope="col">Nama Barang</th>
-      <th scope="col">Harga</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Sub-Total</th>
-      <th scope="col">Aksi</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-     @foreach($detailpenjualan as $detailpenjualan)
-    <tr>
-      <td><center>{{ $detailpenjualan->NamaProduk }}</center></td>
-      <td><center>{{ $detailpenjualan->Harga }}</center></td>
-      <td><center>{{ $detailpenjualan->JumlahProduk }}</center></td>
-      <td><center>{{ $detailpenjualan->SubTotal }}</center></td>
-      <td><center>
-        <a href="/pelanggan/{{$pelanggan->PelangganID}}" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> </a> 
-        <a type="button" class="btn btn-outline-success" href="#"><i class="fa-solid fa-pen-to-square"></i> </a>
-      </center></td>
-    </tr>
-    @endforeach
-  </tbody>
- </table>
-</div>
-<br>
-<div class="d-grid gap-2 d-md-block">
-  <button type="button" class="btn btn-outline-dark">Selesai  <i class="fa-solid fa-check"></i></button>
-</div>
-<br>
-<br>
+  <br>  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

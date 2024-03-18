@@ -22,28 +22,27 @@
 <br>
 <br>
 <div class="container">
-<form action="" method="POST" enctype="multipart/form-data">
-      @method("POST")
+<form action='{{url("updatestok/$produk->ProdukID")}}' class="form-signin" style="text-align: center;" method="POST" enctype="multipart/form-data">
+      @method("PUT")
       @csrf
-    <form class="form-signin" style="text-align: center;">       
-      <h2 class="form-signin-heading"><center>TAMBAH PRODUK</center></h2>
+      <h2 class="form-signin-heading"><center>UPDATE PRODUK</center></h2>
       <br>
       <br>
-      <input type="text" class="form-control" name="NamaProduk" placeholder="nama produk" required="" autofocus="" />
+      <input type="text" class="form-control" name="NamaProduk" placeholder="nama produk" required="" autofocus=""  value="{{ $produk->NamaProduk }}"/>
       <br>
       <br>
-      <input type="number" class="form-control" name="Harga" placeholder="Harga" required=""/> 
+      <input type="number" class="form-control" name="Harga" placeholder="Harga" required=""  value="{{ $produk->Harga }}"/> 
       <br>
       <br>  
-      <input type="number" class="form-control" name="Stok" placeholder="Stok" required=""/> 
+      <input type="number" class="form-control" name="Stok" placeholder="Stok" required="" value="{{ $produk->Stok }}"/> 
       <br>
       <br>
-      <button type="submit" class="btn btn-primary">Tambah <i class="fa-solid fa-arrow-up-from-bracket"></i></button> 
+      <input class="btn btn-primary" type="submit" value="Update"> 
       <br>
       <br>
-      <a href="Barang" type="button" class="btn btn-outline-danger" ><i class="fa-solid fa-arrow-left"></i></a>   
-    </form>
+  
     </form>
   </div>
+
 </body>
 </html>

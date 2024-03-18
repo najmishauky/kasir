@@ -10,17 +10,33 @@
 <body>
 <style>
   body {
-    background-image:url('{{asset ('foto/bg1.jpg')}}');
+    /* background-image:url('{{asset ('foto/bg1.jpg')}}'); */
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background:#59D5E0;
   }
+  h1{
+        text-shadow: black 8px 0 6px;
+        color: white;
+      }
+  h2{
+    text-shadow: black 8px 0 6px;
+    color: white;
+  }
+  .navbar-brand{
+    text-shadow: yellow 5px 0 6px;
+  }
+
  </style>
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-dark bg-primary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><i class="fa-solid fa-cash-register"></i>    Aplikasi Kasir</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas offcanvas-end text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><i class="fa-solid fa-cash-register"></i>    Aplikasi Kasir</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -43,11 +59,11 @@
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Pelanggan
+              Pelanggan 
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
               <li><a class="dropdown-item" href="pelanggan"><i class="fa-solid fa-users-line"></i>  Pelanggan</a></li>
-              <li><a class="dropdown-item" href="tambah_produk"><i class="fa-solid fa-users-line"></i> Tambah Pelanggan</a></li>
+              <li><a class="dropdown-item" href="tambah_pelanggan"><i class="fa-solid fa-users-line"></i> Tambah Pelanggan</a></li>
             </ul>
           </li>
 
@@ -63,11 +79,6 @@
           <li><a class="dropdown-item" href="register"> <i class="fa-solid fa-user-plus"></i>    Register</a></li>
           </li>
           <br>
-          
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
         <br>
         <br>
         <br>
@@ -78,7 +89,11 @@
         <br>
         <hr>
         <li class="nav-item">
-          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i>  Logout</a></li>
+            <form action="{{route('logout')}}" method="POST" class="d-flex" role="search">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger" type="submit">Logout</button>
+          </form>
           </li>
         </ul>
       </div>
@@ -89,7 +104,15 @@
   <br>
   <br>
   <br>
-  <center><h1>selamat datang </h1></center>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <center><h2> ! Selamat Datang Di Aplikasi Kasir ! </h2></center>
+  <br>
+  <center><h1>SELAMAT BERBELANJA & BER TRANSAKSI <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></h1></center>
   <br>
   <br>
   <br>

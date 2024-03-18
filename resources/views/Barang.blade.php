@@ -7,21 +7,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
    
-    <style>
-      body {
-        background-image: url('{{ asset('foto/bg1.jpg') }}');
-      }
-    </style>
+    
 </head>
-<body>
+<body >
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
+<style>
+      body {
+        background: #59D5E0;
+        font-family: sans-serif;
+        
+      }
+      .table{
+        box-shadow: 0 10px 15px black;
+      }
+      h1{
+        color: white;
+        text-shadow: yellow 8px 0 6px;
+      }
+</style>
+
+<nav class="navbar navbar-dark bg-primary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><i class="fas fa-cash-register"></i>  Aplikasi Kasir</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas offcanvas-end text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><i class="fas fa-cash-register"></i>    Aplikasi Kasir</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -53,7 +64,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="penjualan"><i class="fas fa-file-invoice-dollar"></i> Penjualan</a>
+            <a class="nav-link active" aria-current="page" href="penjualan"><i class="fa-solid fa-cart-shopping"></i> Penjualan</a>
           </li>
           
           <li class="nav-item">
@@ -63,35 +74,39 @@
           <li class="nav-item">
             <a class="nav-link" href="register"><i class="fas fa-user-plus"></i> Register</a>
           </li>
-          
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-success" type="submit">Search</button>
-          </form>
-          
+          <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
           <hr>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-right-from-bracket"></i>  Logout</a>
+            <form action="{{route('logout')}}" method="POST" class="d-flex" role="search">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger" type="submit">Logout</button>
+          </form>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </nav>
-
 <br>
 <br>
 <br>
-
+<div class="container">
 <center><h1>{{ $judul }}</h1></center>
 <br>
-
-<div class="container">
+<br>
   <table class="table">
-    <thead class="table-dark">
+    <thead class="table-primary">
       <tr>
-        <th scope="col"><center>ID Produk</center></th>
-        <th scope="col"><center>Nama Produk</center></th>
+        <th scope="col"><center><i class="fa-regular fa-id-badge"></i> ID Produk</center></th>
+        <th scope="col"><center><i class="fa-solid fa-file-signature"></i> Nama Produk</center></th>
         <th scope="col"><center>Harga</center></th>
         <th scope="col"><center>Stok</center></th>
         <th scope="col"><center>Aksi</center></th>
@@ -106,43 +121,13 @@
           <td><center>{{ $produk->Stok }}</center></td>
           <td><center>
             <a href="/Barang/{{$produk->ProdukID}}" type="button" class="btn btn-outline-danger" ><i class="fas fa-trash"></i></a> 
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fas fa-pen-to-square"></i></button>
+            <a href="/updatestok/{{$produk->ProdukID}}" type="button" class="btn btn-outline-success" ><i class="fa-solid fa-pen-to-square"></i></a>
           </center></td>
         </tr>
       @endforeach
     </tbody>
   </table>
 </div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-    <div class="modal-content">
-    <div class="container">
-    <div class="wrapper">
-    <form  class="form-signin"  style="text-align: center;">      
-      <br>
-      <h2 class="form-signin-heading">UPDATE PRODUK</h2>
-      <br>
-      <br>
-      <input type="text" class="form-control" name="Nama Produk" placeholder="Nama Produk" required="" autofocus="" />
-      <br>
-      <br>
-      <input type="number" class="form-control" name="Harga" placeholder="Harga" required=""/> 
-      <br>
-      <br>  
-      <input type="number" class="form-control" name="Stok" placeholder="Stok" required=""/> 
-      <br>
-      <br>
-      <button type="button" class="btn btn-success">UPDATE</button>     
-    </form>
-    <br>
-    <br>
-    </div>
-    </div>
-    </div>
-  </div>
-</div>
-
 
 <br>
 <br>

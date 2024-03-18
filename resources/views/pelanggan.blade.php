@@ -9,18 +9,28 @@
 </head>
 <body>
  <style>
-  body {
-    background-image:url('{{asset ('foto/bg1.jpg')}}');
-  }
+    body {
+      font-family: sans-serif;
+      background:#59D5E0;
+        
+      }
+      .table{
+        box-shadow: 0 15px 15px black;
+      }
+      h1{
+        text-shadow: yellow 8px 0 6px;
+        color: white;
+      }
+
  </style>
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-dark bg-primary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><i class="fa-solid fa-cash-register"></i>    Aplikasi Kasir</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas offcanvas-end text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><i class="fa-solid fa-cash-register"></i>    Aplikasi Kasir</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -47,12 +57,12 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
               <li><a class="dropdown-item" href="pelanggan"><i class="fa-solid fa-users-line"></i>  Pelanggan</a></li>
-              <li><a class="dropdown-item" href="tambah_produk"><i class="fa-solid fa-users-line"></i> Tambah Pelanggan</a></li>
+              <li><a class="dropdown-item" href="tambah_pelanggan"><i class="fa-solid fa-users-line"></i> Tambah Pelanggan</a></li>
             </ul>
           </li>
 
           <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="penjualan"><i class="fa-solid fa-file-invoice-dollar"></i> Penjualan</a>
+          <a class="nav-link active" aria-current="page" href="penjualan"><i class="fa-solid fa-cart-shopping"></i> Penjualan</a>
           </li>
           <br>
           <li class="nav-item">
@@ -64,10 +74,7 @@
           </li>
           <br>
           
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
+        
         <br>
         <br>
         <br>
@@ -77,8 +84,12 @@
         <br>
         <br>
         <hr>
-        <li class="nav-item">
-          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i>  Logout</a></li>
+          <li class="nav-item">
+          <form action="{{route('logout')}}" method="POST" class="d-flex" role="search">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger" type="submit">Logout</button>
+          </form>
           </li>
         </ul>
       </div>
@@ -88,16 +99,17 @@
   <br>
   <br>
   <br>
+  <div class="container">
   <center><h1>{{ $judul }}</h1></center>
   <br>
-  <div class="container">
+  <br>
   <table class="table">
-  <thead class="table-dark">
+  <thead class="table-primary">
     <tr>
-      <th scope="col"><center>ID pelanggan</center></th>
-      <th scope="col"><center>Nama Pelanggan</center></th>
-      <th scope="col"><center>Alamat</center></th>
-      <th scope="col"><center>No Telp</center></th>
+      <th scope="col"><center><i class="fa-regular fa-id-badge"></i> ID pelanggan</center></th>
+      <th scope="col"><center><i class="fa-solid fa-address-card"></i> Nama Pelanggan</center></th>
+      <th scope="col"><center><i class="fa-solid fa-location-dot"></i> Alamat</center></th>
+      <th scope="col"><center><i class="fa-solid fa-phone"></i> No Telp</center></th>
       <th scope="col"><center>Aksi</center></th>
     </tr>
   </thead>
@@ -110,7 +122,7 @@
       <td><center>{{ $pelanggan->NomorTelepon}}</center></td>
       <td><center>
         <a href="/pelanggan/{{$pelanggan->PelangganID}}" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> </a> 
-        <a type="button" class="btn btn-outline-success" href="#"><i class="fa-solid fa-pen-to-square"></i> </a>
+        <a href="/updatepelanggan/{{$pelanggan->PelangganID}}" type="button" class="btn btn-outline-success" ><i class="fa-solid fa-pen-to-square"></i></a>
       </center></td>
     </tr>
     @endforeach

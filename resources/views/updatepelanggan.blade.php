@@ -22,28 +22,27 @@
 <br>
 <br>
 <div class="container">
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="{{ route('pelanggan.edit', $pelanggan->PelangganID)}}" class="form-signin" style="text-align: center;" method="POST" enctype="multipart/form-data">
       @method("POST")
       @csrf
-    <form class="form-signin" style="text-align: center;">       
-      <h2 class="form-signin-heading"><center>TAMBAH PRODUK</center></h2>
+      <h2 class="form-signin-heading"><center>UPDATE PELANGGAN</center></h2>
       <br>
       <br>
-      <input type="text" class="form-control" name="NamaProduk" placeholder="nama produk" required="" autofocus="" />
+      <input type="text" class="form-control" name="NamaPelanggan" placeholder="nama produk" required="" autofocus="" />
       <br>
       <br>
-      <input type="number" class="form-control" name="Harga" placeholder="Harga" required=""/> 
+      <textarea type="text" class="form-control" name="Alamat" placeholder="Alamat" required=""></textarea> 
       <br>
       <br>  
-      <input type="number" class="form-control" name="Stok" placeholder="Stok" required=""/> 
+      <input type="number" class="form-control" name="NomorTelepon" placeholder="NomorTelepon" required=""/> 
       <br>
       <br>
-      <button type="submit" class="btn btn-primary">Tambah <i class="fa-solid fa-arrow-up-from-bracket"></i></button> 
+      <input class="btn btn-primary" type="submit" value="Update"> 
       <br>
       <br>
-      <a href="Barang" type="button" class="btn btn-outline-danger" ><i class="fa-solid fa-arrow-left"></i></a>   
-    </form>
+  
     </form>
   </div>
+
 </body>
 </html>

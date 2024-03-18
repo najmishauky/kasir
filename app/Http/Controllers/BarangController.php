@@ -23,25 +23,38 @@ class BarangController extends Controller
         ]);
     }
 
-    function update(){
+    function edit($id){
+        $id = (int) $id;        
         
+        $affected = DB::table('produk')
+              ->where('ProdukID', $id)
+              ->update(['produk' => request()->NamaProduk]);
+
+    return redirect('produk');
     }
 
-    // function tambahproduk(Request $request){
 
-    //     $isi_pengaduan = $request->isi_laporan;
+    function update($id)
+    {
+        $produk = DB::table('produk')
+            ->where('ProdukID', '=', $id)
+            ->first();
+        return view('/updatestok', ['produk' => $produk]);
+    }
 
-    //     DB::table('produk')->insert([
-    //         'tgl_pengaduan'=> $,
-    //         'nik' =>'001',
-    //         'isi_laporan' => $isi_pengaduan,
-    //         'foto' => '',
-    //         'status' => '0'
-    //     ]);
+    function perbarui(Request $request, $id){
 
-    //     return redirect('/pengaduan');
-    //  }
-
+        $stok = $request->Stok;
+        $harga = $request->Harga;
+        $nama = $request->NamaProduk;
+        DB::table('produk')->where('ProdukID', $id)
+        ->update([
+            'Stok' => $stok,
+            'Harga' => $harga,
+            'NamaProduk' => $nama,
+        ]);
+        return redirect("/Barang");
+    }
 
     function hapus($id)
      {
